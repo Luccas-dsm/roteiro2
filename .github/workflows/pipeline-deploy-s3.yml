@@ -14,15 +14,15 @@ jobs:
       with:
         node-version: '18'
         cache: 'npm'
-    - name: frontend install
-      run: npm --prefix frontend install
-    - name: frontend build
-      run: npm --prefix frontend run build
-    - name: upload frontend build
+    - name: meu-app install
+      run: npm --prefix meu-app install
+    - name: meu-app build
+      run: npm --prefix meu-app run build
+    - name: upload meu-app build
       uses: actions/upload-artifact@v4
       with:
         name: build
-        path: frontend/.next/server/app
+        path: meu-app/.next/server/app
 
   deploy:
     runs-on: ubuntu-latest
@@ -37,5 +37,5 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: build
-        path: frontend/.next/server/app
-    - run: aws s3 cp frontend/.next/server/app s3://$BUCKET_S3 --recursive --acl public-read
+        path: meu-app/.next/server/app
+    - run: aws s3 cp meu-app/.next/server/app s3://$BUCKET_S3 --recursive --acl public-read
